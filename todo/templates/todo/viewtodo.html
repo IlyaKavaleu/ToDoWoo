@@ -1,0 +1,53 @@
+{% extends "todo/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-1">
+            <h2>Your Todo</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="card mb-3" width="100">
+                    <h4 class="card-header">
+                    {{ todo.title }}
+                    </h4>
+
+                <div class="card-body">
+                    {{ todo.memo|linebreaks }}
+                </div>
+                </div>
+<!--                <div class="form-group form-check">-->
+<!--                    <input type="checkbox" name="important" class="form-check-input" id="important" {% if todo.important %}checked{% endif %}>-->
+<!--                    <label class="form-check-label" for="important">Important</label>-->
+<!--                </div>-->
+                <button type="button" class="btn btn-danger" onclick="$('#complete').click()">Complete</button>
+                <button type="button" class="btn btn-danger" onclick="$('#delete').click()">Delete</button>
+                <a href="{% url 'edittodo' todo.pk %}"><button type="button" class="btn btn-success" onclick="$('#edit').click()">Edit</button></a>
+
+            </form>
+        </div>
+    </div>
+    {% if todo.datecompleted is None %}
+        <form style='display: none;' method="POST" action="{% url 'completetodo' todo.id %}">
+            {% csrf_token %}
+            <button id="complete" type="submit">Complete</button>
+        </form>
+    {% endif %}
+    <form style='display: none;' method="POST" action="{% url 'deletetodo' todo.id %}">
+        {% csrf_token %}
+        <button id="delete" type="submit">Delete</button>
+    </form>
+
+
+
+
+{% endblock %}
