@@ -5,15 +5,20 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 
 from .forms import TodoForm
 from .models import Todo
 
 
 def home(request):
+    """homepage with home.html"""
     return render(request, 'todo/home.html')
 
+
 def signupuser(request):
+    """in this view we give form for sign up(REGISTRATINS) for new users and check password users with signupuser.html"""
+
     if request.method == 'GET':
         return render(request, 'todo/signupuser.html', {'form': UserCreationForm})
     else:
@@ -30,6 +35,8 @@ def signupuser(request):
             return render(request, 'todo/signupuser.html', {'form': UserCreationForm(), 'error':'Password did not match!'})
 
 def loginuser(request):
+    """in this view we give form for login for users and authentication with loginuser.html"""
+
     if request.method == 'GET':
         return render(request, 'todo/loginuser.html', {'form': AuthenticationForm})
     else:
@@ -43,12 +50,16 @@ def loginuser(request):
 
 @login_required
 def logoutuser(request):
+    """in this view we logout users and redirects to home page"""
     if request.method == 'POST':
         logout(request)
         return redirect('home')
 
+
 @login_required
 def createtodo(request):
+    """in this view create new task(todo) with validation form with createtodo.html"""
+
     if request.method == 'GET':
         return render(request, 'todo/createtodo.html', {'form': TodoForm})
     else:
@@ -64,6 +75,10 @@ def createtodo(request):
 
 @login_required
 def edittodo(request, todo_pk):
+    """in this view we take our task from db and edit task and
+    if without change we stay in page edit, but if we change entry we redirect to list with
+    currents tasks(current.html)"""
+
     todo = Todo.objects.get(pk=todo_pk)
     if request.method == 'GET':
         return render(request, 'todo/edittodo.html', {'form': TodoForm(instance=todo)})
@@ -80,17 +95,27 @@ def edittodo(request, todo_pk):
 
 @login_required
 def currenttodos(request):
-    todos = Todo.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'todo/currenttodos.html', {'todos':todos})
+    """here we take from db out currents tasks with redis cache"""
+    todos_cache = cache.get('todos_cache')
+    if not todos_cache:
+        todos_cache = Todo.objects.filter(user=request.user, datecompleted__isnull=True)
+        cache.set('todos_cache', todos_cache, 10)
+    else:
+        todos_cache = cache.get('todos_cache')
+    return render(request, 'todo/currenttodos.html', {'todos_cache': todos_cache})
 
 @login_required
-def viewtodo(request, todo_pk):
-    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
-    return render(request, 'todo/viewtodo.html', {'todo':todo})
+def viewtodo(request, todo_id):
+    """here we with help -get_object_or_404- take todo or give exception
+    bound with current user"""
+    todo = get_object_or_404(Todo, id=todo_id, user=request.user)
+    return render(request, 'todo/viewtodo.html', {'todo': todo})
 
 
 @login_required
 def completetodo(request, todo_pk):
+    """here we take list with complited tasks if model -Todo.datecompleted(null=True) will be False
+     we send this task in complited tasks"""
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
         todo.datecompleted = timezone.now()
@@ -99,6 +124,8 @@ def completetodo(request, todo_pk):
 
 @login_required
 def deletetodo(request, todo_pk):
+    """we delete our task from db"""
+
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
         todo.delete()
@@ -106,5 +133,12 @@ def deletetodo(request, todo_pk):
 
 @login_required
 def completedtodos(request):
-    todos = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    return render(request, 'todo/completedtodos.html', {'todos':todos})
+    """we take only tasks where datecompleted__isnull is False(complited tasks) with redis cache"""
+
+    completed_todos_cache = cache.get('completed_todos_cache')
+    if not completed_todos_cache:
+        completed_todos_cache = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
+        cache.set('completed_todos_cache', completed_todos_cache, 10)
+    else:
+        completed_todos_cache = cache.get('completed_todos_cache')
+    return render(request, 'todo/completedtodos.html', {'completed_todos_cache': completed_todos_cache})

@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Todo(models.Model):
+    """Model Todo for tasks(todos)"""
     title = models.CharField(max_length=100)
     memo = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
