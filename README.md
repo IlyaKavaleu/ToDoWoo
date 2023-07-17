@@ -69,7 +69,7 @@ After filling in the fields and upon successful authorization, we are also redir
 
 
 9. - Exit the session using the “Logout“ button.
-![logout_9](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/33e78a5d-c2b7-4d11-b9b6-a16b26127d2b)
+![logout_9](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/75b57950-277e-4e81-81cf-127a8d9afe9a)
 
 
 10. - Library tests were imposed on the project “UnitTest“.
