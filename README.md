@@ -1,4 +1,37 @@
-Small ToDoList for tasks.
+To Do Woo
+How started my project on your local server?
+
+The project for study Django.
+
+Stack:
+Python
+PostgreSQL
+Redis
+Local Developing
+All actions should be executed from the source directory of the project and only after installing all requirements.
+
+Firstly, create and activate a new virtual environment:
+
+python3.9 -m venv ../venv
+source ../venv/bin/activate
+Install packages:
+
+pip install --upgrade pip
+pip install -r requirements.txt
+Run project dependencies, migrations, fill the database with the fixture data etc.:
+
+./manage.py migrate
+./manage.py loaddata <path_to_fixture_files>
+./manage.py runserver 
+
+Run Redis Server:
+redis-server
+
+Run Celery:
+celery -A store worker --loglevel=INFO
+
+
+ToDoList for tasks.
 The “to do woo” program is designed to create a list of tasks. The program helps to manage to-do lists, implement planned tasks and not forget anything.
 The user has the ability to create a list of tasks, in the process of their execution, can change, delete, complete.
 The program is implemented in the Python programming language using:
@@ -80,4 +113,4 @@ Have a check:
   - absence of a user
   - user presence
   - check by message(fail) for an error
-![tests_10](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/3962d253-26dd-4dd8-9c0e-63749e6a8fb3)
+![tests_10 png](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/986c9f62-ceff-4766-b0ba-1c4b30a53edb)
