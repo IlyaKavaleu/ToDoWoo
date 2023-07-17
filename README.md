@@ -16,7 +16,7 @@ All actions should be executed from the source directory of the project and only
 python3.9 -m venv ../venv
 source ../venv/bin/activate
 
-<h3>Install packages:</h3>h3>
+<h3>Install packages:</h3>
 
 pip install
 --upgrade pip   
@@ -25,7 +25,7 @@ pip install
 -r requirements.txt
 
 
-<h3>Run project dependencies, migrations, fill the database with the fixture data etc.:</h3>h3>
+<h3>Run project dependencies, migrations, fill the database with the fixture data etc.:</h3>
 
 ./manage.py migrate
 ./manage.py loaddata <path_to_fixture_files>
