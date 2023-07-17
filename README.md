@@ -18,8 +18,11 @@ source ../venv/bin/activate
 
 Install packages:
 
-pip install --upgrade pip   
-pip install -r requirements.txt
+pip install
+--upgrade pip   
+
+pip install
+-r requirements.txt
 
 
 Run project dependencies, migrations, fill the database with the fixture data etc.:
