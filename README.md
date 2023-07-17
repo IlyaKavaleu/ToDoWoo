@@ -5,7 +5,7 @@ The project for study Django.
 
 Stack:
 Python
-PostgreSQL
+SqLite
 Redis
 Local Developing
 All actions should be executed from the source directory of the project and only after installing all requirements.
