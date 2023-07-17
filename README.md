@@ -1,5 +1,4 @@
-![image](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/c8694b3d-813c-48d5-afce-0ebbb542b640)![image](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/3196b863-37ed-4c56-9044-3bb8d7256062)# Small-To-Do-List
-Small ToDoList for entries.
+Small ToDoList for tasks.
 The “to do woo” program is designed to create a list of tasks. The program helps to manage to-do lists, implement planned tasks and not forget anything.
 The user has the ability to create a list of tasks, in the process of their execution, can change, delete, complete.
 The program is implemented in the Python programming language using:
