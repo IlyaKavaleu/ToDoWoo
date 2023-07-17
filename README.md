@@ -25,7 +25,7 @@ by choosing to change the state of the task.
 ![createtodo_2](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/334d7380-16ec-413c-9acd-aa806459f032)
 
 
-3. –A generated block with a task.
+3. - A generated block with a task.
 Working with the task block. The block of each task contains information: Name; Description; A priority; Task state change menu.
 
 
@@ -37,7 +37,7 @@ Option “Delete“ - deletes the task.
 ![crearedtodo_3](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/fc74fb67-2427-4df8-942a-b1df22af510a)
 
 
-4. – Task editing window.
+4. - Task editing window.
 Also in the task name input field, we can change it, as well as descriptions. You can also change the task status from “Important” to “Minor”.
 Also, when choosing to change the importance of a task, the color of the task changes - from white to red!
 ![edittodo_4](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/f2e80780-75b2-4eb8-9346-aac1d8ff1465)
