@@ -38,7 +38,7 @@ redis-server
 Run Celery:
 celery -A store worker --loglevel=INFO
 
-ToDoList for tasks.
+<h1>ToDoList for tasks.</h1>
 The “to do woo” program is designed to create a list of tasks. The program helps to manage to-do lists, implement planned tasks and not forget anything.
 The user has the ability to create a list of tasks, in the process of their execution, can change, delete, complete.
 The program is implemented in the Python programming language using:
