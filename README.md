@@ -35,7 +35,8 @@ pip install
 <h3>Run Redis Server:</h3>
 redis-server
 
-<h3Run Celery:</h3>
+
+<h3>Run Celery:</h3>
 celery -A store worker --loglevel=INFO
 
 <h1>ToDoWoo for tasks.</h1>
