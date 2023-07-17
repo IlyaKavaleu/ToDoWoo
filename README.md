@@ -40,7 +40,7 @@ Option “Delete“ - deletes the task.
 4. – Task editing window.
 Also in the task name input field, we can change it, as well as descriptions. You can also change the task status from “Important” to “Minor”.
 Also, when choosing to change the importance of a task, the color of the task changes - from white to red!
-![edittodo_4](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/67110c94-0e6b-44cd-b1de-cb009ac238cf)
+![edittodo_4](https://github.com/IlyaKavaleu/Small-To-Do-List/assets/97099564/f2e80780-75b2-4eb8-9346-aac1d8ff1465)
 
 
 5. - List of current tasks, which is formed using the "currenttodos" method.
