@@ -30,9 +30,12 @@ def signupuser(request):
                 return redirect('currenttodos')
             except IntegrityError:
                 return render(request, 'todo/signupuser.html',
-                              {'form': UserCreationForm(), 'error': 'That username has already taken. Choose new name.'})
+                              {'form': UserCreationForm(),
+                               'error': 'That username has already taken. Choose new name.'})
         else:
-            return render(request, 'todo/signupuser.html', {'form': UserCreationForm(), 'error':'Password did not match!'})
+            return render(request, 'todo/signupuser.html',
+                          {'form': UserCreationForm(), 'error': 'Password did not match!'})
+
 
 def loginuser(request):
     """in this view we give form for login for users and authentication with loginuser.html"""
@@ -42,13 +45,14 @@ def loginuser(request):
     else:
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, 'todo/loginuser.html', {'form': AuthenticationForm, 'error':'Username and password did not match!'})
+            return render(request, 'todo/loginuser.html',
+                          {'form': AuthenticationForm, 'error': 'Username and password did not match!'})
         else:
             login(request, user)
             return redirect('currenttodos')
 
 
-@login_required
+# @login_required
 def logoutuser(request):
     """in this view we logout users and redirects to home page"""
     if request.method == 'POST':
@@ -73,6 +77,7 @@ def createtodo(request):
         except ValueError:
             return render(request, 'todo/createtodo.html', {'form': TodoForm(), 'error': 'Bad data passed in'})
 
+
 @login_required
 def edittodo(request, todo_pk):
     """in this view we take our task from db and edit task and
@@ -93,6 +98,7 @@ def edittodo(request, todo_pk):
         except ValueError:
             return render(request, 'todo/currenttodos.html', {'form': TodoForm(), 'error': 'Bad info'})
 
+
 @login_required
 def currenttodos(request):
     """here we take from db out currents tasks with redis cache"""
@@ -104,6 +110,7 @@ def currenttodos(request):
         todos_cache = cache.get('todos_cache')
     return render(request, 'todo/currenttodos.html', {'todos_cache': todos_cache})
 
+
 @login_required
 def viewtodo(request, todo_id):
     """here we with help -get_object_or_404- take todo or give exception
@@ -114,13 +121,14 @@ def viewtodo(request, todo_id):
 
 @login_required
 def completetodo(request, todo_pk):
-    """here we take list with complited tasks if model -Todo.datecompleted(null=True) will be False
+    """here we take list with complited tasks if model - Todo.datecompleted(null=True), will be False
      we send this task in complited tasks"""
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
         todo.datecompleted = timezone.now()
         todo.save()
         return redirect('currenttodos')
+
 
 @login_required
 def deletetodo(request, todo_pk):
@@ -131,13 +139,15 @@ def deletetodo(request, todo_pk):
         todo.delete()
         return redirect('currenttodos')
 
+
 @login_required
 def completedtodos(request):
     """we take only tasks where datecompleted__isnull is False(complited tasks) with redis cache"""
 
     completed_todos_cache = cache.get('completed_todos_cache')
     if not completed_todos_cache:
-        completed_todos_cache = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
+        completed_todos_cache = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by(
+            '-datecompleted')
         cache.set('completed_todos_cache', completed_todos_cache, 10)
     else:
         completed_todos_cache = cache.get('completed_todos_cache')
