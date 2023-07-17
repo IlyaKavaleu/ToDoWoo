@@ -30,12 +30,9 @@ Run project dependencies, migrations, fill the database with the fixture data et
 
 
 Run Redis Server:
-
 redis-server
 
-
 Run Celery:
-
 celery -A store worker --loglevel=INFO
 
 
