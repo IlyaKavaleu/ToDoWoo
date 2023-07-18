@@ -29,7 +29,6 @@ pip install
 
 ./manage.py migrate
 ./manage.py loaddata <path_to_fixture_files>
-./manage.py runserver 
 
 
 <h3>Run Redis Server:</h3>
@@ -38,6 +37,10 @@ redis-server
 
 <h3>Run Celery:</h3>
 celery -A store worker --loglevel=INFO
+
+
+<h3>After completing the steps follow the link -- http://127.0.0.1:8000/</h3>
+
 
 <h1>ToDoWoo for tasks.</h1>
 The “to do woo” program is designed to create a list of tasks. The program helps to manage to-do lists, implement planned tasks and not forget anything.
