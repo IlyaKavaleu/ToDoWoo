@@ -1,7 +1,7 @@
 <h1>To Do Woo</h1>
 How started my project on your local server?
 
-The project for study Django.<
+The project for study Django.
 
 <h3>Stack:</h3>
 - Python
